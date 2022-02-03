@@ -248,13 +248,24 @@ struct StringsStructGenerator: ExternalOnlyStructGenerator {
           name: "preferredLanguages",
           type: Type._Array.withGenericArgs([Type._String]).asOptional(),
           defaultValue: "nil"
+        ),
+        Function.Parameter(
+            name: "fallbackLanguage",
+            type: Type._String,
+            defaultValue: "\"en\""
         )
       ],
       doesThrow: false,
       returnType: Type._String,
       body: """
         guard let preferredLanguages = preferredLanguages else {
-          return \(values.swiftCode(bundle: "hostingBundle"))
+          let localizedString = \(values.swiftCode(bundle: "hostingBundle"))
+
+          guard localizedString == \"\(values.key.escapedStringLiteral)\",
+            let fallbackBundlePath = hostingBundle.path(forResource: fallbackLanguage, ofType: "lproj"),
+            let fallbackLocalizationBundle = Bundle(path: fallbackBundlePath) else { return localizedString }
+
+          return fallbackLocalizationBundle.localizedString(forKey: \"\(values.key.escapedStringLiteral)\", value: nil, table: \"\(values.tableName)\")
         }
 
         guard let (_, bundle) = localeBundle(tableName: "\(values.tableName)", preferredLanguages: preferredLanguages) else {
@@ -284,7 +295,14 @@ struct StringsStructGenerator: ExternalOnlyStructGenerator {
       type: Type._Array.withGenericArgs([Type._String]).asOptional(),
       defaultValue: "nil"
     )
+
+    let fallbackLanguage = Function.Parameter(
+      name: "fallbackLanguage",
+      type: Type._String,
+      defaultValue: "\"en\""
+    )
     params.append(prefereredLanguages)
+    params.append(fallbackLanguage)
 
     return Function(
       availables: [],
@@ -298,8 +316,16 @@ struct StringsStructGenerator: ExternalOnlyStructGenerator {
       returnType: Type._String,
       body: """
         guard let preferredLanguages = preferredLanguages else {
-          let format = \(values.swiftCode(bundle: "hostingBundle"))
-          return String(format: format, locale: applicationLocale, \(args))
+          let localizedString = \(values.swiftCode(bundle: "hostingBundle"))
+
+          guard localizedString == \"\(values.key.escapedStringLiteral)\",
+            let fallbackBundlePath = hostingBundle.path(forResource: fallbackLanguage, ofType: "lproj"),
+            let fallbackLocalizationBundle = Bundle(path: fallbackBundlePath) else {
+            return String(format: localizedString, locale: applicationLocale, \(args))
+          }
+
+          let format = fallbackLocalizationBundle.localizedString(forKey: \"\(values.key.escapedStringLiteral)\", value: nil, table: \"\(values.tableName)\")
+          return String(format: format, locale: Locale(identifier: fallbackLanguage), \(args))
         }
 
         guard let (locale, bundle) = localeBundle(tableName: "\(values.tableName)", preferredLanguages: preferredLanguages) else {
