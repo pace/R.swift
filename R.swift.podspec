@@ -22,15 +22,14 @@ Pod::Spec.new do |spec|
 
   spec.requires_arc       = true
   spec.source             = { :http => "https://github.com/mac-cain13/R.swift/releases/download/#{spec.version}/rswift-#{spec.version}.zip" }
-  spec.swift_version      = "5.7"
+  spec.swift_version      = "5.1"
 
-  spec.osx.deployment_target     = '10.15'
-  spec.ios.deployment_target     = '11'
-  spec.tvos.deployment_target    = '11'
-  spec.watchos.deployment_target = '4'
+  spec.ios.deployment_target     = '9.0'
+  spec.tvos.deployment_target    = '9.0'
+  spec.watchos.deployment_target = '2.2'
+
+  spec.dependency "R.swift.Library", "~> 5.4.0"
 
   spec.preserve_paths = "rswift"
-  spec.source_files   = "RswiftResources/**/*.swift"
-  spec.module_name    = "RswiftResources"
 
 end
