@@ -180,3 +180,19 @@ public struct StringResource9<Arg1: CVarArg, Arg2: CVarArg, Arg3: CVarArg, Arg4:
         self.comment = comment
     }
 }
+
+public struct StringResource10<Arg1: CVarArg, Arg2: CVarArg, Arg3: CVarArg, Arg4: CVarArg, Arg5: CVarArg, Arg6: CVarArg, Arg7: CVarArg, Arg8: CVarArg, Arg9: CVarArg, Arg10: CVarArg> {
+    public let key: StaticString
+    public let tableName: String
+    public let source: StringResource.Source
+    public let developmentValue: String?
+    public let comment: StaticString?
+
+    public init(key: StaticString, tableName: String, source: StringResource.Source, developmentValue: String?, comment: StaticString?) {
+        self.key = key
+        self.tableName = tableName
+        self.source = source
+        self.developmentValue = developmentValue
+        self.comment = comment
+    }
+}

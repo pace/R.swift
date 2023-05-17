@@ -116,6 +116,14 @@ extension String {
     public init<Arg1: CVarArg, Arg2: CVarArg, Arg3: CVarArg, Arg4: CVarArg, Arg5: CVarArg, Arg6: CVarArg, Arg7: CVarArg, Arg8: CVarArg, Arg9: CVarArg>(format resource: StringResource9<Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9>, preferredLanguages: [String], locale overrideLocale: Locale? = nil, _ arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3, _ arg4: Arg4, _ arg5: Arg5, _ arg6: Arg6, _ arg7: Arg7, _ arg8: Arg8, _ arg9: Arg9) {
         self.init(key: resource.key, tableName: resource.tableName, source: resource.source, developmentValue: resource.developmentValue, preferredLanguages: preferredLanguages, locale: overrideLocale, arguments: [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9])
     }
+
+    public init<Arg1: CVarArg, Arg2: CVarArg, Arg3: CVarArg, Arg4: CVarArg, Arg5: CVarArg, Arg6: CVarArg, Arg7: CVarArg, Arg8: CVarArg, Arg9: CVarArg, Arg10: CVarArg>(format resource: StringResource10<Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9, Arg10>, locale overrideLocale: Locale? = nil, _ arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3, _ arg4: Arg4, _ arg5: Arg5, _ arg6: Arg6, _ arg7: Arg7, _ arg8: Arg8, _ arg9: Arg9, _ arg10: Arg10) {
+        self.init(key: resource.key, tableName: resource.tableName, source: resource.source, developmentValue: resource.developmentValue, locale: overrideLocale, arguments: [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10])
+    }
+
+    public init<Arg1: CVarArg, Arg2: CVarArg, Arg3: CVarArg, Arg4: CVarArg, Arg5: CVarArg, Arg6: CVarArg, Arg7: CVarArg, Arg8: CVarArg, Arg9: CVarArg, Arg10: CVarArg>(format resource: StringResource10<Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9, Arg10>, preferredLanguages: [String], locale overrideLocale: Locale? = nil, _ arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3, _ arg4: Arg4, _ arg5: Arg5, _ arg6: Arg6, _ arg7: Arg7, _ arg8: Arg8, _ arg9: Arg9, _ arg10: Arg10) {
+        self.init(key: resource.key, tableName: resource.tableName, source: resource.source, developmentValue: resource.developmentValue, preferredLanguages: preferredLanguages, locale: overrideLocale, arguments: [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10])
+    }
 }
 
 
@@ -159,6 +167,10 @@ extension Text {
 
     public init<Arg1: CVarArg, Arg2: CVarArg, Arg3: CVarArg, Arg4: CVarArg, Arg5: CVarArg, Arg6: CVarArg, Arg7: CVarArg, Arg8: CVarArg, Arg9: CVarArg>(_ resource: StringResource9<Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9>, _ arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3, _ arg4: Arg4, _ arg5: Arg5, _ arg6: Arg6, _ arg7: Arg7, _ arg8: Arg8, _ arg9: Arg9) {
         self.init(String(key: resource.key, tableName: resource.tableName, source: resource.source, developmentValue: resource.developmentValue, locale: nil, arguments: [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]))
+    }
+
+    public init<Arg1: CVarArg, Arg2: CVarArg, Arg3: CVarArg, Arg4: CVarArg, Arg5: CVarArg, Arg6: CVarArg, Arg7: CVarArg, Arg8: CVarArg, Arg9: CVarArg, Arg10: CVarArg>(_ resource: StringResource10<Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9, Arg10>, _ arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3, _ arg4: Arg4, _ arg5: Arg5, _ arg6: Arg6, _ arg7: Arg7, _ arg8: Arg8, _ arg9: Arg9, _ arg10: Arg10) {
+        self.init(String(key: resource.key, tableName: resource.tableName, source: resource.source, developmentValue: resource.developmentValue, locale: nil, arguments: [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10]))
     }
 }
 
@@ -293,5 +305,16 @@ extension StringResource9 {
     @available(*, deprecated, message: "Use R.string(preferredLanguages:).*.* instead")
     public func callAsFunction(_ arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3, _ arg4: Arg4, _ arg5: Arg5, _ arg6: Arg6, _ arg7: Arg7, _ arg8: Arg8, _ arg9: Arg9, preferredLanguages: [String]) -> String {
         String(format: self, preferredLanguages: preferredLanguages, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+    }
+}
+
+extension StringResource10 {
+    public func callAsFunction(_ arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3, _ arg4: Arg4, _ arg5: Arg5, _ arg6: Arg6, _ arg7: Arg7, _ arg8: Arg8, _ arg9: Arg9, _ arg10: Arg10) -> String {
+        String(format: self, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+    }
+
+    @available(*, deprecated, message: "Use R.string(preferredLanguages:).*.* instead")
+    public func callAsFunction(_ arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3, _ arg4: Arg4, _ arg5: Arg5, _ arg6: Arg6, _ arg7: Arg7, _ arg8: Arg8, _ arg9: Arg9, _ arg10: Arg10, preferredLanguages: [String]) -> String {
+        String(format: self, preferredLanguages: preferredLanguages, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
     }
 }
